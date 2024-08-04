@@ -2,6 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import '../action_parsers/fluidify_action_parser.dart';
 import '../parsers/fluidify_parser.dart';
+import '../utils/action_type.dart';
+import '../utils/widget_type.dart';
 
 class FluidifyRegistry {
 
@@ -12,9 +14,9 @@ class FluidifyRegistry {
 
   static FluidifyRegistry get instance => _singleton;
 
-  static final _parsers = <String, FluidifyParser<dynamic>>{};
+  static final _parsers = <WidgetType, FluidifyParser<dynamic>>{};
 
-  static final _actionParsers = <String, FluidifyActionParser<dynamic>>{};
+  static final _actionParsers = <ActionType, FluidifyActionParser<dynamic>>{};
 
   bool _registerParser(FluidifyParser<dynamic> parser) {
     final type = parser.type;
@@ -28,7 +30,7 @@ class FluidifyRegistry {
 
   bool _registerAction(FluidifyActionParser<dynamic> parser) {
     final type = parser.actionType;
-    if (_parsers.containsKey(type)) {
+    if (_actionParsers.containsKey(type)) {
       debugPrint('Action $type is already registered');
       return false;
     }
@@ -46,5 +48,13 @@ class FluidifyRegistry {
     for (final parser in parsers) {
       _registerAction(parser);
     }
+  }
+
+  FluidifyParser<dynamic>? getParser(WidgetType type) {
+    return _parsers[type];
+  }
+
+  FluidifyActionParser<dynamic>? getActionParser(ActionType type) {
+    return _actionParsers[type];
   }
 }

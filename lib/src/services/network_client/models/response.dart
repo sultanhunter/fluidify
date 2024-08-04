@@ -1,8 +1,8 @@
 part of 'network_client_entities.dart';
 
 @immutable
-class ApiResponse {
-  const ApiResponse(
+class FluidifyApiResponse {
+  const FluidifyApiResponse(
     this.body,
     this.statusCode,
     this.request, {
@@ -14,6 +14,6 @@ class ApiResponse {
 
   final String body;
   final int statusCode;
-  final ApiRequest request;
+  final FluidifyApiRequest request;
   final Map<String, String> headers;
 }

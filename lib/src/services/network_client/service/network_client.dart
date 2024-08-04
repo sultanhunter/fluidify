@@ -9,15 +9,17 @@ import '../models/network_client_entities.dart';
 export '../models/network_client_entities.dart';
 
 part '../exceptions.dart';
+
 part 'http_client.dart';
+
 part 'network_info.dart';
 
-typedef RequestInterceptor = Future<ApiRequest> Function(
-  ApiRequest apiRequest,
+typedef RequestInterceptor = Future<FluidifyApiRequest> Function(
+  FluidifyApiRequest apiRequest,
 );
 
-typedef ResponseInterceptor = Future<ApiResponse> Function(
-  ApiResponse response,
+typedef ResponseInterceptor = Future<FluidifyApiResponse> Function(
+  FluidifyApiResponse response,
 );
 
 abstract class NetworkClient {
@@ -25,7 +27,7 @@ abstract class NetworkClient {
   /// given [uri] and saves it on local disk.
   ///
   /// The downloaded file will be saved to the file referenced by [file] object.
-  Future<ApiResponse> download(
+  Future<FluidifyApiResponse> download(
     Uri uri,
     File file, {
     Map<String, String>? headers,
@@ -34,7 +36,7 @@ abstract class NetworkClient {
   /// Sends a HTTP GET request with the given [headers] to the generated URL.
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> get(
+  Future<FluidifyApiResponse> get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -48,7 +50,7 @@ abstract class NetworkClient {
   /// The content-type is set to `"application/json"` by default in [headers].
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> post(
+  Future<FluidifyApiResponse> post(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -63,7 +65,7 @@ abstract class NetworkClient {
   /// The content-type is set to `"application/json"` by default in [headers].
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> put(
+  Future<FluidifyApiResponse> put(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -78,7 +80,7 @@ abstract class NetworkClient {
   /// The content-type is set to `"application/json"` by default in [headers].
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> delete(
+  Future<FluidifyApiResponse> delete(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -93,7 +95,7 @@ abstract class NetworkClient {
   /// The content-type is set to `"multipart/form-data"` by default in [headers].
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> multipart(
+  Future<FluidifyApiResponse> multipart(
     String path,
     List<File> files, {
     Map<String, String>? headers,
@@ -109,7 +111,7 @@ abstract class NetworkClient {
   /// The content-type is set to `"application/json"` by default in [headers].
   ///
   /// [queryParameters] are parsed and added to the URL before request is sent.
-  Future<ApiResponse> custom({
+  Future<FluidifyApiResponse> custom({
     required Method method,
     required String path,
     String? host,

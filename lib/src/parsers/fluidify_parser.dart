@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 
 import '../utils/map_extension.dart';
+import '../utils/widget_type.dart';
 
-abstract class  FluidifyParser<T>{
+abstract class FluidifyParser<T> {
+  WidgetType get type;
 
-  String get type;
+  T getWidgetDataModel(Json json);
 
-  T getData(Json json);
-
-  Widget parse(BuildContext context,T data);
+  Widget parseWidget(BuildContext context, T data);
 
 }

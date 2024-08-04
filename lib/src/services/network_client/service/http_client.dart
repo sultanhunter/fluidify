@@ -19,7 +19,7 @@ class HttpClientImpl implements NetworkClient {
   bool get shouldAuthorise => authorizationToken.isNotEmpty;
 
   @override
-  Future<ApiResponse> delete(
+  Future<FluidifyApiResponse> delete(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -31,7 +31,7 @@ class HttpClientImpl implements NetworkClient {
       headers.addAll({'Authorization': authorizationToken});
     }
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         Method.delete.value,
         _host,
         path,
@@ -51,7 +51,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> download(
+  Future<FluidifyApiResponse> download(
     Uri uri,
     File file, {
     Map<String, String>? headers,
@@ -61,7 +61,7 @@ class HttpClientImpl implements NetworkClient {
         ..addAll({'Authorization': authorizationToken});
     }
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         Method.get.value,
         uri.host,
         uri.path,
@@ -79,7 +79,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> get(
+  Future<FluidifyApiResponse> get(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -90,7 +90,7 @@ class HttpClientImpl implements NetworkClient {
     }
 
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         Method.get.value,
         _host,
         path,
@@ -106,7 +106,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> multipart(
+  Future<FluidifyApiResponse> multipart(
     String path,
     List<File> files, {
     Map<String, String>? headers,
@@ -120,7 +120,7 @@ class HttpClientImpl implements NetworkClient {
     }
     final post = Method.post.value;
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         post,
         _host,
         path,
@@ -154,7 +154,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> post(
+  Future<FluidifyApiResponse> post(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -166,7 +166,7 @@ class HttpClientImpl implements NetworkClient {
       headers.addAll({'Authorization': authorizationToken});
     }
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         Method.post.value,
         _host,
         path,
@@ -186,7 +186,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> put(
+  Future<FluidifyApiResponse> put(
     String path, {
     Map<String, String>? headers,
     Map<String, String>? queryParameters,
@@ -198,7 +198,7 @@ class HttpClientImpl implements NetworkClient {
       headers.addAll({'Authorization': authorizationToken});
     }
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         Method.put.value,
         _host,
         path,
@@ -219,7 +219,7 @@ class HttpClientImpl implements NetworkClient {
   }
 
   @override
-  Future<ApiResponse> custom({
+  Future<FluidifyApiResponse> custom({
     required Method method,
     required String path,
     String? host,
@@ -233,7 +233,7 @@ class HttpClientImpl implements NetworkClient {
       headers.addAll({'Authorization': authorizationToken});
     }
     final request = await _interceptedRequest(
-      ApiRequest(
+      FluidifyApiRequest(
         method.value,
         host ?? _host,
         path,
@@ -262,7 +262,7 @@ class HttpClientImpl implements NetworkClient {
     return _handleStatusCode(response);
   }
 
-  ApiResponse _handleStatusCode(ApiResponse response) {
+  FluidifyApiResponse _handleStatusCode(FluidifyApiResponse response) {
     if (response.statusCode >= 200 && response.statusCode <= 300) {
       return response;
     } else if (response.statusCode == 500) {
@@ -274,7 +274,8 @@ class HttpClientImpl implements NetworkClient {
     }
   }
 
-  Future<ApiRequest> _interceptedRequest(ApiRequest request) async {
+  Future<FluidifyApiRequest> _interceptedRequest(
+      FluidifyApiRequest request) async {
     var interceptedRequest = request;
     for (final interceptor in requestInterceptors) {
       interceptedRequest = await interceptor(request);
@@ -282,7 +283,8 @@ class HttpClientImpl implements NetworkClient {
     return interceptedRequest;
   }
 
-  Future<ApiResponse> _interceptedResponse(ApiResponse response) async {
+  Future<FluidifyApiResponse> _interceptedResponse(
+      FluidifyApiResponse response) async {
     var alteredResponse = response;
     for (final interceptor in responseInterceptors) {
       alteredResponse = await interceptor(response);
@@ -290,8 +292,9 @@ class HttpClientImpl implements NetworkClient {
     return alteredResponse;
   }
 
-  ApiResponse _responseFrom(http.Response response, ApiRequest request) {
-    return ApiResponse(
+  FluidifyApiResponse _responseFrom(
+      http.Response response, FluidifyApiRequest request) {
+    return FluidifyApiResponse(
       response.body,
       response.statusCode,
       request,
