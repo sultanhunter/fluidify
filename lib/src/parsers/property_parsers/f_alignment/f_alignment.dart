@@ -1,42 +1,4 @@
-// import 'package:flutter/cupertino.dart';
-//
-// enum FAlignmentGeomet {
-//   topLeft,
-//   topCenter,
-//   topRight,
-//   centerLeft,
-//   center,
-//   centerRight,
-//   bottomLeft,
-//   bottomCenter,
-//   bottomRight;
-//
-//   Alignment get value {
-//     switch (this) {
-//       case FAlignment.topLeft:
-//         return Alignment.topLeft;
-//       case FAlignment.topCenter:
-//         return Alignment.topCenter;
-//       case FAlignment.topRight:
-//         return Alignment.topRight;
-//       case FAlignment.centerLeft:
-//         return Alignment.centerLeft;
-//       case FAlignment.center:
-//         return Alignment.center;
-//       case FAlignment.centerRight:
-//         return Alignment.centerRight;
-//       case FAlignment.bottomLeft:
-//         return Alignment.bottomLeft;
-//       case FAlignment.bottomCenter:
-//         return Alignment.bottomCenter;
-//       case FAlignment.bottomRight:
-//         return Alignment.bottomRight;
-//     }
-//   }
-// }
-
 import 'package:flutter/widgets.dart';
-
 import '../../../utils/map_extension.dart';
 
 abstract class FAlignmentGeometry {
