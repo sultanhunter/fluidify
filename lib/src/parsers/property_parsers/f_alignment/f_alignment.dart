@@ -30,6 +30,8 @@ abstract class FAlignmentGeometry {
     }
     return null;
   }
+
+  AlignmentGeometry get parse;
 }
 
 class FAlignment extends FAlignmentGeometry {
@@ -96,6 +98,7 @@ class FAlignment extends FAlignmentGeometry {
   /// The bottom right corner.
   static const FAlignment bottomRight = FAlignment(1, 1);
 
+  @override
   Alignment get parse {
     switch (this) {
       case FAlignment.topLeft:
@@ -195,6 +198,7 @@ class FAlignmentDirectional extends FAlignmentGeometry {
   /// The bottom corner on the "end" side.
   static const FAlignmentDirectional bottomEnd = FAlignmentDirectional(1, 1);
 
+  @override
   AlignmentDirectional get parse {
     switch (this) {
       case FAlignmentDirectional.topStart:
